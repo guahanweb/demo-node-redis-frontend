@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import 'scss/index.scss';
 import App from './App';
+import { VotingProvider } from 'hooks/withVoting';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <VotingProvider address="ws://localhost:4000">
+      <App />
+    </VotingProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

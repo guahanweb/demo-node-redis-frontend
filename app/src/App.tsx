@@ -1,24 +1,20 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import { useVoting, useVotingResults } from "hooks/withVoting"
 
 function App() {
+  const voting: any = useVoting();
+  const results: any = useVotingResults();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="controls">
+        <button onClick={() => voting.vote("smile")}>smile</button>
+        <button onClick={() => voting.vote("frown")}>frown</button>
+      </div>
+      <div>
+        <pre>{JSON.stringify(results, null, 2)}</pre>
+      </div>
     </div>
   );
 }
