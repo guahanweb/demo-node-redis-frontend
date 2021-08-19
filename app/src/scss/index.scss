@@ -5,3 +5,32 @@
 
 // Core Layout
 @import '~bootstrap/scss/bootstrap.scss';
+
+.voting-option {
+    margin: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    & > .control {
+        width: 100px;
+    }
+
+    & > .percentage {
+        width: 100%;
+        .wrapper {
+            position: relative;
+            height: 12px;
+
+            .bar {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                background-color: rgba(255, 0, 0, 0.4);
+                transition: width 0.5s;
+            }
+        }
+    }
+}

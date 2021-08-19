@@ -5,7 +5,7 @@ const ResultsContext: any = createContext(null);
 
 export function VotingProvider({ address, children }: { address: string, children: JSX.Element }) {
     const ws: any = useRef(null);
-    const [ votes, setVotes ] = useState(null);
+    const [ votes, setVotes ] = useState<any>(null);
 
     useEffect(function () {
         ws.current = new WebSocket(address);
@@ -19,10 +19,17 @@ export function VotingProvider({ address, children }: { address: string, childre
                 if (topic === "votes") {
                     setVotes(function () {
                         const result: any = {};
+                        let total: number = 0;
+
                         data.forEach(({ votes, choice }: any) => {
                             result[choice] = votes;
+                            total += parseInt(votes);
                         });
-                        return result;
+
+                        return {
+                            votes: result,
+                            total,
+                        };
                     });
                 }
             } catch (err) {
@@ -36,16 +43,22 @@ export function VotingProvider({ address, children }: { address: string, childre
     // eslint-disable-next-line
     }, []);
 
+    const reset = useCallback(function () {
+        if (!ws.current) return;
+        const payload = { action: "reset" };
+        const message = `c::${JSON.stringify(payload)}`;
+        ws.current.send(message);
+    }, []);
+
     const sendVote = useCallback(function (choice) {
         if (!ws.current) return;
-
         const payload = { action: "vote", info: choice };
         const message = `c::${JSON.stringify(payload)}`;
         ws.current.send(message);
     }, []);
 
     return (
-        <VotingContext.Provider value={{ vote: sendVote }}>
+        <VotingContext.Provider value={{ vote: sendVote, reset }}>
             <ResultsContext.Provider value={votes}>
                 {children}
             </ResultsContext.Provider>
