@@ -1,15 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'scss/index.scss';
-import App from './App';
-import { VotingProvider } from 'hooks/withVoting';
+import { App } from './App';
+import { WebsocketProvider } from 'hooks/withWebsocket';
+import { AppProvider } from "hooks/withAppState";
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <VotingProvider address="ws://localhost:4000">
-      <App />
-    </VotingProvider>
+    <WebsocketProvider address="ws://localhost:4000">
+      <AppProvider>
+        <App />
+      </AppProvider>
+    </WebsocketProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

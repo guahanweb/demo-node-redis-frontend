@@ -1,0 +1,86 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+    background-color: #e4e4e4;
+}
+
+.screen-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    header {
+        padding: 1rem;
+        border-radius: 4px;
+        max-width: 80%;
+        background-color: #fff;
+        box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .game-options {
+        display: flex;
+        flex-wrap: wrap;
+
+        & > .option {
+            flex: 1 0 50%;
+            padding: 5px;
+
+            .holder {
+                height: 240px;
+                cursor: pointer;
+                background-color: #ddd;
+                border-radius: 4px;
+                border: 2px solid #eee;
+                overflow: hidden;
+                background-position: 50% 50%;
+                background-size: contain;
+                background-repeat: no-repeat;
+
+                h1 {
+                    line-height: 1;
+                    margin: 0;
+                    padding: 12px;
+                    font-weight: 300;
+                    color: #fff;
+                    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+                    -webkit-touch-callout: none; /* iOS Safari */
+                    -webkit-user-select: none; /* Safari */
+                     -khtml-user-select: none; /* Konqueror HTML */
+                       -moz-user-select: none; /* Old versions of Firefox */
+                        -ms-user-select: none; /* Internet Explorer/Edge */
+                            user-select: none; /* Non-prefixed version, currently
+                                                  supported by Chrome, Edge, Opera and Firefox */
+                }
+            }
+
+            &.option-eevee .holder { background-color: #F9F2DD; }
+            &.option-pikachu .holder {
+                background-color: #fff7c4;
+                h1 {
+                    text-align: right;
+                }
+            }
+            &.option-snorlax .holder {
+                background-color: #9ad9cd;
+                background-position: 50% 300%;
+            }
+            &.option-koffing .holder {
+                background-color: #f0e1ed;
+                h1 {
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+

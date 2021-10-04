@@ -1,54 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import { useVoting, useVotingResults } from "hooks/withVoting"
+import React, { useState } from 'react';
+import { useAppState } from "hooks/withAppState"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
-function App() {
-  const voting: any = useVoting();
-  const results: any = useVotingResults();
+import { SplashScreen } from "components/splash-screen"
+import { GameScreen } from "components/game-screen"
+import { ResultsScreen } from "components/results-screen"
+import { AdminPanel } from 'components/admin-panel';
 
-  return (
-    <div className="App">
-      <div className="controls">
-        <VotingOption choice="smile" />
-        <VotingOption choice="frown" />
-      </div>
-      <div>
-        <pre>{JSON.stringify(results, null, 2)}</pre>
-        <button className="btn btn-outline-danger" onClick={() => voting.reset()}>reset</button>
-      </div>
-    </div>
-  );
+const options = [
+  "eevee",
+  "pikachu",
+  "snorlax",
+  "koffing",
+];
+
+function MainGame() {
+  const { status } = useAppState();
+
+  if (status === "pending") {
+    return <SplashScreen />;
+  } else if (status === "running") {
+    return <GameScreen options={options} />;
+  } else if (status === "complete") {
+    return <ResultsScreen options={options} />;
+  }
+
+  return null;
 }
 
-function VotingOption({ choice }: { choice: string }) {
-  const voting: any = useVoting();
-  const results: any = useVotingResults();
-  const [ pct, setPct ] = useState(0);
-
-  useEffect(function () {
-    if (results) {
-      const value = results.votes && results.votes[choice];
-      if (value) {
-        // calculate the percentage of votes
-        setPct(Math.round(value / results.total * 100));
-      } else {
-        setPct(0);
-      }
-    }
-  }, [results, choice]);
-
+export function App() {
   return (
-    <div className="voting-option">
-      <div className="control">
-        <button className="btn btn-primary" onClick={() => voting.vote(choice)}>{choice}</button>
-      </div>
-      <div className="percentage">
-        <div className="wrapper">
-          <div className="bar" style={{ width: `${pct}%`}}></div>
-        </div>
-        <div className="value">{pct}%</div>
-      </div>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/demo-url">
+          <AdminPanel />
+        </Route>
+        <Route path="/">
+          <MainGame />
+        </Route>
+      </Switch>
+    </Router>
   )
 }
-
-export default App;
