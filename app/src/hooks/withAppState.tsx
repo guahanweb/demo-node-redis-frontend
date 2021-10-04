@@ -35,24 +35,9 @@ export function AppProvider({ children }: { children: JSX.Element }) {
         votes: {},
     });
 
-    const handleTimerChange = useCallback(function (new_time: number) {
-        setTimer(curr => {
-            console.log("TIMER CHANGE:", curr, new_time);
-            if (curr === null && new_time > 0) {
-                // new game is starting, set the timer and the game status
-                setStatus("active");
-            } else if (curr !== null && new_time === 0) {
-                // timer is expired, so finish game
-                setStatus("complete");
-            }
-            return new_time;
-        });
-    }, []);
-
     // whenever the message changes, see what we need to do
     useEffect(function () {
         if (message !== null) {
-            console.log(message);
             const { topic, data = null }: any = message;
             switch (topic) {
                 case "state":
@@ -63,7 +48,7 @@ export function AppProvider({ children }: { children: JSX.Element }) {
                     break;
 
                 case "timer":
-                    handleTimerChange(data);
+                    setTimer(data);
                     break;
 
                 case "votes":
@@ -82,8 +67,6 @@ export function AppProvider({ children }: { children: JSX.Element }) {
             total += votes;
         });
 
-        console.log("RECEIVED:", result);
-
         setVotes({
             votes: result,
             total,
@@ -97,10 +80,6 @@ export function AppProvider({ children }: { children: JSX.Element }) {
             running,
             timer,
             votes,
-
-            // actions
-            setVotes: handleVoteChange,
-            setTimer: handleTimerChange,
         }}>
             {children}
         </AppContext.Provider>
