@@ -8,23 +8,15 @@ export function ResultsScreen({ options }: any) {
     const [ voteResults, setVoteResults ] = useState<any[]>([]);
 
     useEffect(function () {
-        if (votes) {
-            let total = 0;
-            let results: any[] = [];
-
-            votes.forEach((vote: any) => {
-                if (options.includes(vote.choice)) {
-                    total += vote.votes;
-                    results.push({
-                        choice: vote.choice,
-                        votes: vote.votes,
-                    });
-                }
-            });
-
-            setVoteResults(results);
-        }
-    }, [votes]);
+        const results = options.map((choice: string) => {
+            const value = votes.votes && votes.votes[choice];
+            return {
+                choice,
+                votes: value || 0,
+            };
+        });
+        setVoteResults(results);
+    }, [votes, options]);
 
     return (
         <div className="screen-wrapper results-screen">

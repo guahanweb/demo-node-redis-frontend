@@ -33,7 +33,7 @@ export function App() {
     <Router>
       <Switch>
         <Route exact path="/demo-url">
-          <AdminPanel />
+          <AdminPanel options={options} />
         </Route>
         <Route path="/">
           <MainGame />

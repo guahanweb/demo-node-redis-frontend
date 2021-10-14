@@ -32,7 +32,7 @@ export function AppProvider({ children }: { children: JSX.Element }) {
     const [ timer, setTimer ] = useState<number|null>(null);
     const [ votes, setVotes ] = useState<ScoreResults>({
         total: 0,
-        votes: {},
+        votes: [],
     });
 
     // whenever the message changes, see what we need to do
@@ -41,10 +41,11 @@ export function AppProvider({ children }: { children: JSX.Element }) {
             const { topic, data = null }: any = message;
             switch (topic) {
                 case "state":
+                    console.log("state data", data);
                     setStatus(data.status);
                     setRunning(data.running);
                     setTimer(data.countdown);
-                    setVotes(data.votes);
+                    handleVoteChange(data.votes);
                     break;
 
                 case "timer":
@@ -52,6 +53,7 @@ export function AppProvider({ children }: { children: JSX.Element }) {
                     break;
 
                 case "votes":
+                    console.log("vote data:", data);
                     handleVoteChange(data);
                     break;
             }
