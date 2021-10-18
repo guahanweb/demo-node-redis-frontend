@@ -6,9 +6,21 @@ import { WebsocketProvider } from 'hooks/withWebsocket';
 import { AppProvider } from "hooks/withAppState";
 import reportWebVitals from './reportWebVitals';
 
+function websocketPath() {
+  var loc = window.location, new_uri;
+  if (loc.protocol === "https:") {
+    new_uri = "wss:";
+  } else {
+    new_uri = "ws:";
+  }
+  new_uri += "//" + loc.host;
+  new_uri += "/websocket";
+  return new_uri;
+}
+
 ReactDOM.render(
   <React.StrictMode>
-    <WebsocketProvider address="ws://localhost:4000">
+    <WebsocketProvider address={websocketPath()}>
       <AppProvider>
         <App />
       </AppProvider>
