@@ -35,6 +35,21 @@ export function AppProvider({ children }: { children: JSX.Element }) {
         votes: [],
     });
 
+    const handleVoteChange = useCallback((data: any) => {
+        const result: any = {};
+        let total: number = 0;
+
+        data.forEach(({ votes, choice }: { votes: number, choice: string }) => {
+            result[choice] = votes;
+            total += votes;
+        });
+
+        setVotes({
+            votes: result,
+            total,
+        });
+    }, []);
+
     // whenever the message changes, see what we need to do
     useEffect(function () {
         if (message !== null) {
@@ -58,22 +73,7 @@ export function AppProvider({ children }: { children: JSX.Element }) {
                     break;
             }
         }
-    }, [message]);
-
-    const handleVoteChange = useCallback((data: any) => {
-        const result: any = {};
-        let total: number = 0;
-
-        data.forEach(({ votes, choice }: { votes: number, choice: string }) => {
-            result[choice] = votes;
-            total += votes;
-        });
-
-        setVotes({
-            votes: result,
-            total,
-        });
-    }, []);
+    }, [message, handleVoteChange]);
 
     return (
         <AppContext.Provider value={{

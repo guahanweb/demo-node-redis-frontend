@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useWebsocket } from "hooks/withWebsocket"
 import { useAppState } from "hooks/withAppState"
 import * as d3 from "d3"
@@ -47,10 +47,11 @@ function BarChart({ width, height, data }: any) {
             .attr("width", width)
             .attr("height", height)
             .style("border", "1px solid black")
-    }, []);
+    }, [height, width]);
 
     useEffect(function () {
         draw();
+    // eslint-disable-next-line
     }, [data]);
 
     function draw() {

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useWebsocket } from "hooks/withWebsocket"
 import { useAppState } from "hooks/withAppState"
 
 export function ResultsScreen({ options }: any) {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppState } from "hooks/withAppState"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
@@ -32,6 +32,9 @@ export function App() {
   return (
     <Router>
       <Switch>
+        <Route exact path="/healthcheck">
+          <h3>App is healthy!</h3>
+        </Route>
         <Route exact path="/demo-url">
           <AdminPanel options={options} />
         </Route>

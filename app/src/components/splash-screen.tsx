@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useWebsocket } from "hooks/withWebsocket"
-import { useAppState } from "hooks/withAppState"
+import React from 'react';
 
 export function SplashScreen() {
-    const { send } = useWebsocket();
-
     return (
         <div className="screen-wrapper splash-screen">
             <header>

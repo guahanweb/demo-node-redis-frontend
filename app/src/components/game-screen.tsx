@@ -65,6 +65,7 @@ function VotingOption({ choice, votes, pct }: { choice: string, votes: number, p
             action: "vote",
             info: choice,
         });
+    // eslint-disable-next-line
     }, []);
 
     const images: any = {
