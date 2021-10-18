@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY ./app/package*.json .
 COPY ./app/tsconfig.json .
-COPY ./app/public .
-COPY ./app/src .
+COPY ./app/public ./public
+COPY ./app/src ./src
 RUN npm install
 
 EXPOSE 3000
