@@ -70,10 +70,7 @@ body {
                     text-align: right;
                 }
             }
-            &.option-snorlax .holder {
-                background-color: #9ad9cd;
-                background-position: 50% 300%;
-            }
+            &.option-snorlax .holder { background-color: #9ad9cd; }
             &.option-koffing .holder {
                 background-color: #f0e1ed;
                 h1 {
@@ -82,5 +79,48 @@ body {
             }
         }
     }
+
+    .countdown {
+        color: #444;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 400;
+        & > span {
+            font-size: 2em;
+            font-weight: 600;
+            color: #9e0b00;
+        }
+    }
 }
 
+.admin {
+    .controls {
+        padding: 10px;
+        background-color: #999;
+        border-bottom: 2px solid #777;
+        margin-bottom: 15px;
+
+        button {
+            margin-left: 8px;
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+
+    .results {
+        .chart {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                overflow: hidden;
+                box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, 0.12);
+                background-color: #fff;
+            }
+        }
+    }
+}

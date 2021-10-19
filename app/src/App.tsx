@@ -35,7 +35,7 @@ export function App() {
         <Route exact path="/healthcheck">
           <h3>App is healthy!</h3>
         </Route>
-        <Route exact path="/demo-url">
+        <Route exact path="/5085e822-b26f-4577-a76f-43dd90f12e2b">
           <AdminPanel options={options} />
         </Route>
         <Route path="/">

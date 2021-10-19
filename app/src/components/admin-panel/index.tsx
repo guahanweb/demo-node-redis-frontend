@@ -22,7 +22,9 @@ export function AdminPanel({ options }: AdminPanelProps) {
     return (
         <div className="admin">
             <ControlPanel status={status} />
-            <BarChart width={900} height={600} data={data} />
+            <div className="results">
+                <BarChart width={480} height={600} data={data} />
+            </div>
         </div>
     )
 }
@@ -32,9 +34,9 @@ function ControlPanel({ status }: any) {
 
     return (
         <div className="controls">
-            <button onClick={() => send({ action: "start" })} disabled={status !== "pending"}>start</button>
-            <button onClick={() => send({ action: "stop" })} disabled={status !== "running"}>stop</button>
-            <button onClick={() => send({ action: "reset" })} disabled={status !== "complete"}>reset</button>
+            <button className="btn btn-light" onClick={() => send({ action: "start" })} disabled={status !== "pending"}>start</button>
+            <button className="btn btn-light" onClick={() => send({ action: "stop" })} disabled={status !== "running"}>stop</button>
+            <button className="btn btn-light" onClick={() => send({ action: "reset" })} disabled={status !== "complete"}>reset</button>
         </div>
     )
 }
@@ -46,7 +48,6 @@ function BarChart({ width, height, data }: any) {
         d3.select(ref.current)
             .attr("width", width)
             .attr("height", height)
-            .style("border", "1px solid black")
     }, [height, width]);
 
     useEffect(function () {
@@ -70,13 +71,20 @@ function BarChart({ width, height, data }: any) {
         let selection = svg.selectAll("rect")
             .data(data);
 
+        // update all the text values
+        svg.selectAll("text")
+            .data(data)
+            .each(function (d: any, i: number) {
+                d3.select(this).text(d);
+            });
+
         let yScale: any = d3.scaleLinear()
             .domain(domain)
             .range([0, height - 100]);
 
         bars.append("rect")
             .attr("x", (d: any, i: number) => {
-                return i * 45
+                return (i * 45) + 5
             })
             .attr("y", (d: any) => height)
             .attr("width", 40)
@@ -87,10 +95,9 @@ function BarChart({ width, height, data }: any) {
                 .attr("y", (d: any) => height - yScale(d))
 
         bars.append("text")
-            .data(data)
             .text((d: any) => d)
             .attr("y", (d: any) => height - 20)
-            .attr("x", (d: any, i: number) => (i * 45) + 20)
+            .attr("x", (d: any, i: number) => (i * 45) + 25)
             .style("text-anchor", "middle");
 
         selection

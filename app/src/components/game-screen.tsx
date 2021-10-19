@@ -52,7 +52,7 @@ export function GameScreen({ options }: any) {
 function CountdownTimer({ timer }: any) {
     return timer === null ? null : (
         <div className="countdown">
-            Game ends in: {timer} seconds!
+            <span>{timer}</span> seconds left!
         </div>
     );
 }
